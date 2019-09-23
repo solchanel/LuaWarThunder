@@ -90,7 +90,7 @@ public:
 
 	Angle& operator=(const Angle& src);
 
-	Angle operator-(void) const;
+	//Angle operator-(void) const;
 
 	Angle operator+(const Angle& v) const;
 	Angle operator-(const Angle& v) const;
@@ -333,10 +333,10 @@ inline float Angle::LengthSqr() const
 	return x * x + y * y;
 }
 
-inline Angle Angle::operator-(void) const
-{
-	return Angle(-x, -y, -z);
-}
+//inline Angle Angle::operator-(void) const
+//{
+//	return Angle(-x, -y, -z);
+//}
 
 inline Angle Angle::operator+(const Angle& v) const
 {

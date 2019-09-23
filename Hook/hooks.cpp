@@ -51,9 +51,9 @@ namespace AcesUnit
 
 			O::ClientView->DrawBombIndicator = Vars.Misc.DrawBombIndicator;
 
-			G::LocalPlayer->GetUnit()->GetUnitInfo()->ZoomMultipler = Vars.Visuals.ZoomMulti;
-			G::LocalPlayer->GetUnit()->GetUnitInfo()->ZoomCrosshairScale = Vars.Visuals.ZoomMulti;
-			G::LocalPlayer->GetUnit()->GetUnitInfo()->ZoomShadowMulti = Vars.Visuals.ScopeShadow;
+			unit->GetUnitInfo()->ZoomMultipler = Vars.Visuals.ZoomMulti;
+			unit->GetUnitInfo()->ZoomCrosshairScale = Vars.Visuals.ZoomMulti;
+			unit->GetUnitInfo()->ZoomShadowMulti = Vars.Visuals.ScopeShadow;
 		}
 	}
 }

@@ -83,6 +83,35 @@ void Main(HINSTANCE hInstance)
 	LuaRenderer.set_function("DrawCircle", &LuaRenderer::DrawCircle);
 	LuaRenderer.set_function("DrawCircleFilled", &LuaRenderer::DrawCircleFilled);
 
+	G::Lua.new_usertype<Vector>("Vector", sol::constructors<Vector(), Vector(float, float, float)>(), 
+		"x", &Vector::x,
+		"y", &Vector::y,
+		"z", &Vector::z,
+		"dot", &Vector::Dot, 
+		"len", &Vector::Length,
+		"len2d", &Vector::Length2D,
+		"normalize", &Vector::Normalize,
+		"is_zero", &Vector::IsZero,
+		sol::meta_function::addition, &Vector::operator+,
+		sol::meta_function::subtraction, &Vector::operator-,
+		sol::meta_function::to_string, &Vector::ToString,
+		sol::meta_function::length, &Vector::Length
+		);
+
+	G::Lua.new_usertype<Angle>("Angle", sol::constructors<Angle(), Angle(float, float, float)>(),
+		"x", &Angle::x,
+		"y", &Angle::y,
+		"z", &Angle::z,
+		"len", &Angle::Length,
+		"normalize", &Angle::Normalize,
+		"clamp", &Angle::Clamp,
+		"is_zero", &Angle::IsZero,
+		sol::meta_function::addition, &Angle::operator+,
+		sol::meta_function::subtraction, &Angle::operator-,
+		sol::meta_function::to_string, &Angle::ToString,
+		sol::meta_function::length, &Angle::Length
+		);
+
 	G::Lua.open_libraries();
 	G::Lua.safe_script_file(G::LuaPath);
 
