@@ -37,6 +37,8 @@ namespace AcesUnit
 
 		if (unit)
 		{
+			LuaAPI::LuaCallback<void(Unit *)>("WarThunder_OnRespawn", unit);
+
 			O::ClientView->DrawTankDistance = Vars.Misc.DrawDistanceInScope;
 			O::ClientView->PenetrationCrosshair = Vars.Misc.DrawPenetrationIndicator;
 			O::ClientView->ThirdPerson = Vars.Visuals.Thirdperson;

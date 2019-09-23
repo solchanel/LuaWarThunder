@@ -76,12 +76,12 @@ void Main(HINSTANCE hInstance)
 	InitializeCriticalSection(&G::Luacs);
 	EnterCriticalSection(&G::Luacs);
 
-	//auto LuaRenderer = G::Lua["Renderer"].get_or_create<sol::table>();
+	auto LuaRenderer = G::Lua["Renderer"].get_or_create<sol::table>();
 
-	G::Lua.set_function("DrawString", &LuaRenderer::DrawString);
-	//LuaRenderer.set_function("DrawLine", &LuaRenderer::DrawLine);
-	//LuaRenderer.set_function("DrawCircle", &LuaRenderer::DrawCircle);
-	//LuaRenderer.set_function("DrawCircleFilled", &LuaRenderer::DrawCircleFilled);
+	LuaRenderer.set_function("DrawString", &LuaRenderer::DrawString);
+	LuaRenderer.set_function("DrawLine", &LuaRenderer::DrawLine);
+	LuaRenderer.set_function("DrawCircle", &LuaRenderer::DrawCircle);
+	LuaRenderer.set_function("DrawCircleFilled", &LuaRenderer::DrawCircleFilled);
 
 	G::Lua.open_libraries();
 	G::Lua.safe_script_file(G::LuaPath);

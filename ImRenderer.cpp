@@ -8,22 +8,22 @@ Renderer *Renderer::m_pInstance;
 
 void LuaRenderer::DrawCircleFilled(sol::table pos, float radius, uint32_t color)
 {
-	Renderer::GetInstance()->DrawCircleFilled({ pos[0], pos[1] }, radius, color);
+	Renderer::GetInstance()->DrawCircleFilled({ pos.get<float>(1), pos.get<float>(2) }, radius, color);
 }
 
 void LuaRenderer::DrawLine(sol::table from, sol::table to, uint32_t color, float thickness = 1.0f)
 {
-	Renderer::GetInstance()->DrawLine({ from[0], from[1] }, { to[0], to[1] }, color, thickness);
+	Renderer::GetInstance()->DrawLine({ from.get<float>(1), from.get<float>(2) }, { to.get<float>(1), to.get<float>(2) }, color, thickness);
 }
 
 void LuaRenderer::DrawCircle(sol::table pos, float radius, uint32_t color, float thickness = 1.0f)
 {
-	Renderer::GetInstance()->DrawCircle({ pos[0], pos[1] }, radius, color, thickness);
+	Renderer::GetInstance()->DrawCircle({ pos.get<float>(1), pos.get<float>(2) }, radius, color, thickness);
 }
 
 float LuaRenderer::DrawString(sol::table pos, float size, uint32_t color, std::string msg)
 {
-	return Renderer::GetInstance()->DrawString({ pos[0], pos[1] }, size, color, msg.c_str());
+	return Renderer::GetInstance()->DrawString({ pos.get<float>(1), pos.get<float>(2) }, size, color, msg.c_str());
 }
 
 Renderer::Renderer()

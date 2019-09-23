@@ -36,7 +36,7 @@ private:
 };
 
 
-struct LuaRenderer
+namespace LuaRenderer
 {
 	float DrawString(sol::table pos, const float size, const uint32_t color, const std::string msg);
 	void DrawLine(sol::table from, sol::table to, uint32_t color, float thickness);
