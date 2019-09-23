@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Hook">
+      <UniqueIdentifier>{27653359-d4d5-4876-b470-b9d9c8af2906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUIRenderer">
+      <UniqueIdentifier>{7d1b7afa-e182-4244-8731-0a16e583a3ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUIRenderer\ImGUI">
+      <UniqueIdentifier>{9e419773-46da-4695-885a-226ebc14b10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGUIRenderer\ImGUI\dx11">
+      <UniqueIdentifier>{cc411a40-22fb-4ee2-9438-f6a819b14c02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Hook\memory.cpp">
+      <Filter>Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Hook\hooks.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="settings.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui.cpp">
+      <Filter>ImGUIRenderer\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\dx11\imgui_impl_dx11.cpp">
+      <Filter>ImGUIRenderer\ImGUI\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\dx11\imgui_impl_win32.cpp">
+      <Filter>ImGUIRenderer\ImGUI\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="wndproc.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="offsets.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ImRenderer.cpp">
+      <Filter>ImGUIRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="entities.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui_widgets.cpp">
+      <Filter>ImGUIRenderer\ImGUI\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGUI\imgui_draw.cpp">
+      <Filter>ImGUIRenderer\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="lua_api.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\memory.hpp">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\syscall.hpp">
+      <Filter>Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Hook\hooks.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="settings.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="wndproc.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="offsets.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="math.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ImRenderer.hpp">
+      <Filter>ImGUIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ImFont.hpp">
+      <Filter>ImGUIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="lua_api.hpp">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="Hook\syscall.asm">
+      <Filter>Hook</Filter>
+    </MASM>
+  </ItemGroup>
+</Project>
