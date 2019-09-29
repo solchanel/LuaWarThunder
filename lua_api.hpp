@@ -2,6 +2,8 @@
 
 namespace LuaAPI 
 {
+	void RegisterTypes();
+
 	template<typename... Args> void LuaRegisterCFunction(std::string fn_name, Args&& ...params) {
 		G::Lua.set_function(fn_name, std::forward<Args>(params)...);
 	}

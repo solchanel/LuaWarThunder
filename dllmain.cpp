@@ -1,6 +1,33 @@
 #include "main.hpp"
 #include <Shlwapi.h>
 
+inline void LuaExceptionHandler(sol::optional<std::string> maybe_msg)
+{
+	std::cout << "Lua is in a panic state and will now abort() the application" << std::endl;
+	if (maybe_msg) {
+		const std::string& msg = maybe_msg.value();
+		std::cout << "\terror message: " << msg << std::endl;
+	}
+}
+
+int LuaExceptionHandlerEx(lua_State* L, sol::optional<const std::exception&> maybe_exception, sol::string_view description) 
+{
+	std::cout << "An exception occurred in a function, here's what it says ";
+	if (maybe_exception) 
+	{
+		std::cout << "(straight from the exception): ";
+		const std::exception& ex = *maybe_exception;
+		std::cout << ex.what() << std::endl;
+	}
+	else 
+	{
+		std::cout << "(from the description parameter): ";
+		std::cout.write(description.data(), description.size());
+		std::cout << std::endl;
+	}
+	return sol::stack::push(L, description);
+}
+
 namespace G
 {
 	bool	HooksInitialized;
@@ -14,7 +41,7 @@ namespace G
 	CBaseEntity *LocalPlayer;
 
 	std::string LuaPath;
-	sol::state	Lua;
+	sol::state	Lua(sol::c_call<decltype(&LuaExceptionHandler), &LuaExceptionHandler>);
 
 	CRITICAL_SECTION Luacs;
 }
@@ -63,6 +90,8 @@ void Main(HINSTANCE hInstance)
 	while (!crash_1 || !*crash_2)
 		Sleep(200);
 
+	O::Initialize();
+
 	Settings = new CSettings();
 	Settings->Load();
 
@@ -76,44 +105,26 @@ void Main(HINSTANCE hInstance)
 	InitializeCriticalSection(&G::Luacs);
 	EnterCriticalSection(&G::Luacs);
 
-	auto LuaRenderer = G::Lua["Renderer"].get_or_create<sol::table>();
-
-	LuaRenderer.set_function("DrawString", &LuaRenderer::DrawString);
-	LuaRenderer.set_function("DrawLine", &LuaRenderer::DrawLine);
-	LuaRenderer.set_function("DrawCircle", &LuaRenderer::DrawCircle);
-	LuaRenderer.set_function("DrawCircleFilled", &LuaRenderer::DrawCircleFilled);
-
-	G::Lua.new_usertype<Vector>("Vector", sol::constructors<Vector(), Vector(float, float, float)>(), 
-		"x", &Vector::x,
-		"y", &Vector::y,
-		"z", &Vector::z,
-		"dot", &Vector::Dot, 
-		"len", &Vector::Length,
-		"len2d", &Vector::Length2D,
-		"normalize", &Vector::Normalize,
-		"is_zero", &Vector::IsZero,
-		sol::meta_function::addition, &Vector::operator+,
-		sol::meta_function::subtraction, &Vector::operator-,
-		sol::meta_function::to_string, &Vector::ToString,
-		sol::meta_function::length, &Vector::Length
-		);
-
-	G::Lua.new_usertype<Angle>("Angle", sol::constructors<Angle(), Angle(float, float, float)>(),
-		"x", &Angle::x,
-		"y", &Angle::y,
-		"z", &Angle::z,
-		"len", &Angle::Length,
-		"normalize", &Angle::Normalize,
-		"clamp", &Angle::Clamp,
-		"is_zero", &Angle::IsZero,
-		sol::meta_function::addition, &Angle::operator+,
-		sol::meta_function::subtraction, &Angle::operator-,
-		sol::meta_function::to_string, &Angle::ToString,
-		sol::meta_function::length, &Angle::Length
-		);
-
 	G::Lua.open_libraries();
-	G::Lua.safe_script_file(G::LuaPath);
+	G::Lua.set_exception_handler(&LuaExceptionHandlerEx);
+
+	LuaAPI::RegisterTypes();
+
+	try 
+	{
+		sol::optional<sol::error> err = G::Lua.safe_script_file(G::LuaPath, sol::script_default_on_error);
+		if (err) 
+			std::cout << err->what() << std::endl;
+	}
+	catch (const sol::error &err)
+	{
+		std::cout << "sol::error: " << err.what() << std::endl;
+	}
+	catch (...)
+	{
+		std::exception_ptr crterr = std::current_exception();
+		std::cout << "caught (...)" << std::endl;
+	}
 
 	LeaveCriticalSection(&G::Luacs);
 
@@ -121,8 +132,6 @@ void Main(HINSTANCE hInstance)
 
 	LuaAPI::LuaCallback<void()>("WarThunder_Init");
 
-
-	O::Initialize();
 	H::Setup();
 }
 

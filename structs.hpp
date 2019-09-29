@@ -46,8 +46,8 @@ public:
 	{
 		if (!this) return;
 
-		aim_angles.x = M_PI * angles.x / 180.f;
-		aim_angles.y = M_PI * angles.y / 180.f;
+		aim_angles.x = M_PI * angles.x / 180.f;	// -85	<=> 85
+		aim_angles.y = M_PI * angles.y / 180.f; // -180 <=> 180
 	}
 	Angle Get() const
 	{
@@ -124,6 +124,8 @@ private:
 	char pad_06D8[1848]; //0x06D8
 
 public:
+
+	bool is_valid() const { return true; }
 
 	//std::string GetName();
 	bool IsFriendly();
@@ -297,7 +299,7 @@ class MPlayerList
 {
 public:
 	Entities *Entities; //0x0000 
-	unsigned char MaxPlayers; //0x0008 
+	unsigned int MaxPlayers; //0x0008 
 };
 
 class BotEntities
@@ -317,9 +319,9 @@ class GameInfo
 {
 public:
 	char pad_0000[212]; //0x0000
-	uint8_t IsInFlight; //0x00D4
+	bool IsInFlight; //0x00D4
 	char pad_00D5[1]; //0x00D5
-	uint8_t IsInHangar; //0x00D6
+	bool IsInHangar; //0x00D6
 	char pad_00D7[657]; //0x00D7
 	BotList Bots; //0x0368
 	char pad_0370[3200]; //0x0370

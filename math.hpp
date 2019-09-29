@@ -411,6 +411,7 @@ public:
 	float x, y, z;
 	Vector(void);
 	Vector(float X, float Y, float Z);
+	Vector(float x, float y);
 	Vector(ImVec2 &v);
 	Vector(float v[3])
 	{
@@ -550,9 +551,17 @@ inline Vector::Vector(float X, float Y, float Z)
 inline Vector::Vector(ImVec2 &v)
 {
 	x = v.x;
-	x = v.y;
+	y = v.y;
 	z = 0.f;
 }
+
+inline Vector::Vector(float _x, float _y)
+{
+	x = _x;
+	y = _y;
+	z = 0.f;
+}
+
 inline Vector::Vector(void)
 {
 }

@@ -15,7 +15,7 @@ namespace AcesApp
 		auto ret = setLocalPlayer_o(game, a2);
 		if(G::pGameLocalPlayer.p && *G::pGameLocalPlayer.p)
 			G::LocalPlayer = *G::pGameLocalPlayer.p;
-
+		G::Lua["g_local"] = G::LocalPlayer;
 		return ret;
 	}
 
@@ -35,10 +35,8 @@ namespace AcesUnit
 	{
 		SetArmy_o(unit, a2, a3);
 
-		if (unit)
+		if (unit && unit->GetUnitInfo() && O::ClientView)
 		{
-			LuaAPI::LuaCallback<void(Unit *)>("WarThunder_OnRespawn", unit);
-
 			O::ClientView->DrawTankDistance = Vars.Misc.DrawDistanceInScope;
 			O::ClientView->PenetrationCrosshair = Vars.Misc.DrawPenetrationIndicator;
 			O::ClientView->ThirdPerson = Vars.Visuals.Thirdperson;
@@ -54,6 +52,8 @@ namespace AcesUnit
 			unit->GetUnitInfo()->ZoomMultipler = Vars.Visuals.ZoomMulti;
 			unit->GetUnitInfo()->ZoomCrosshairScale = Vars.Visuals.ZoomMulti;
 			unit->GetUnitInfo()->ZoomShadowMulti = Vars.Visuals.ScopeShadow;
+
+			LuaAPI::LuaCallback<void(Unit *)>("WarThunder_OnRespawn", unit);
 		}
 	}
 }
