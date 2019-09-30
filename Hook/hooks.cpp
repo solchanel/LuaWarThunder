@@ -1,4 +1,6 @@
 #include "../main.hpp"
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
 
 typedef bool setLocalPlayer_t(GameInfo *game, int a2);
 typedef void destroyMultiplayer_t(GameInfo *game, bool a2);
@@ -56,6 +58,40 @@ namespace AcesUnit
 			LuaAPI::LuaCallback<void(Unit *)>("WarThunder_OnRespawn", unit);
 		}
 	}
+}
+
+std::optional<HWND> CreateMainWindow(std::string &WindowTitle, int width, int height)
+{
+	WNDCLASSEX wcex;
+
+	wcex.cbSize = sizeof(WNDCLASSEX);
+
+	wcex.style = CS_HREDRAW | CS_VREDRAW;
+	//wcex.lpfnWndProc = [](HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) { return MsgProc(hwnd, msg, wParam, lParam); };
+	wcex.cbClsExtra = 0;
+	wcex.cbWndExtra = 0;
+	wcex.hInstance = (HINSTANCE)G::MainhModule;
+	wcex.hIcon = LoadIcon(0, IDI_APPLICATION);
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground = (HBRUSH)CreateSolidBrush(RGB(0, 0, 0));
+	wcex.lpszMenuName = WindowTitle.c_str();
+	wcex.lpszClassName = WindowTitle.c_str();
+	wcex.hIconSm = LoadIcon(0, IDI_APPLICATION);
+
+	if (!RegisterClassEx(&wcex))
+		return std::nullopt;
+
+
+	auto hMainWindow = CreateWindowEx(WS_EX_TOPMOST | WS_EX_LAYERED, WindowTitle.c_str(), WindowTitle.c_str(), WS_POPUP, 1, 1, width, height, 0, 0, 0, 0);
+
+	SetLayeredWindowAttributes(hMainWindow, 0, 0.0f, LWA_ALPHA);
+	SetLayeredWindowAttributes(hMainWindow, 0, RGB(0, 0, 0), LWA_COLORKEY);
+
+	const MARGINS Margin = { -1 };
+	if (!SUCCEEDED(DwmExtendFrameIntoClientArea(hMainWindow, &Margin)))
+		return std::nullopt;
+
+	return hMainWindow;
 }
 
 bool H::D3D(HWND hGameWindow)
